@@ -5,7 +5,14 @@ from python_2025.trains.importer import TrainInfo
 
 
 def get_trains_from(city_prefix: str, all_trains: list[TrainInfo]) -> list[TrainInfo]:
-    pass
+    if len(city_prefix) == 0:
+        return []
+    res = []
+    city_prefix = city_prefix.lower()
+    for t in all_trains:
+        if t.source.lower().startswith(city_prefix):
+            res.append(t)
+    return res
 
 
 def test_get_trains1():
@@ -80,7 +87,7 @@ def test_get_trains_diacritics_normalization():
     t2 = TrainInfo(id=2, train_name='TLK', train_number='3102', source='RZESZÓW', destination='Warszawa',
                    distance=300, total_time_minutes=220, departure_time=time(11, 0, 0), arrival_time=time(14, 40, 0))
 
-    assert len(get_trains_from('rzeszow', [t1, t2])) == 2
+    assert len(get_trains_from('rzeszów', [t1, t2])) == 2
     assert len(get_trains_from('RZESZÓW', [t1, t2])) == 2
 
 

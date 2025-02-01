@@ -11,6 +11,9 @@ matplotlib = "^3.10.0"
 networkx = "^3.4.2"
 
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
