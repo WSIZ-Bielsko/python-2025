@@ -63,5 +63,26 @@ def test_get_trains_no_matches():
     assert get_trains_from('xyz', [t1, t2]) == []
 
 
+def test_get_trains_unicode_normalization():
+    t1 = TrainInfo(id=1, train_name='IC', train_number='3101', source='Łódź', destination='Kraków',
+                   distance=220, total_time_minutes=160, departure_time=time(8, 0, 0), arrival_time=time(10, 40, 0))
+    t2 = TrainInfo(id=2, train_name='TLK', train_number='3102', source='ŁÓDŹ', destination='Warszawa',
+                   distance=130, total_time_minutes=90, departure_time=time(12, 0, 0), arrival_time=time(13, 30, 0))
+
+    # Testing different Unicode representations of 'Ł'
+    assert len(get_trains_from('\u0141ódź', [t1, t2])) == 2  # Latin capital letter L with stroke
+    assert len(get_trains_from('Ł\u00F3dź', [t1, t2])) == 2  # Latin small letter o with acute
+
+
+def test_get_trains_diacritics_normalization():
+    t1 = TrainInfo(id=1, train_name='IC', train_number='3101', source='Rzeszów', destination='Kraków',
+                   distance=180, total_time_minutes=140, departure_time=time(8, 0, 0), arrival_time=time(10, 20, 0))
+    t2 = TrainInfo(id=2, train_name='TLK', train_number='3102', source='RZESZÓW', destination='Warszawa',
+                   distance=300, total_time_minutes=220, departure_time=time(11, 0, 0), arrival_time=time(14, 40, 0))
+
+    assert len(get_trains_from('rzeszow', [t1, t2])) == 2
+    assert len(get_trains_from('RZESZÓW', [t1, t2])) == 2
+
+
 if __name__ == '__main__':
     test_get_trains1()
