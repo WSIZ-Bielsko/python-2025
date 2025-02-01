@@ -24,13 +24,12 @@ def convert_duration_info_to_minutes(day_info: str) -> int:
     :param day_info:
     :return:
     """
-
-    days = int(time[0])
-    stripped: str = time.lstrip(str(days) + " days ")
-    data = stripped.split(":")
-    hours = int(data[0])
-    minutes = int(data[1])
-    seconds = int(data[2])
+    day_info = day_info.replace('days', ':')
+    data = day_info.split(":")
+    days = int(data[0])
+    hours = int(data[1])
+    minutes = int(data[2])
+    return (days * 24 + hours) * 60 + minutes
 
 
 def convert_line_to_traininfo(ln: str) -> TrainInfo:
@@ -50,12 +49,26 @@ def convert_line_to_traininfo(ln: str) -> TrainInfo:
                      departure_time, arrival_time)
 
 
-if __name__ == '__main__':
+def load_file(file_name: str) -> list[TrainInfo]:
+    res = []
     with open('small.csv', 'r') as f:
         lines = f.readlines()
         for ln in lines[1:]:
-            print(ln.strip())
-            print(convert_line_to_traininfo(ln))
+            res.append(convert_line_to_traininfo(ln))
+    return res
 
+
+if __name__ == '__main__':
     # info1 = TrainInfo(train_name='kadabra')
     # print(info1)
+
+    # mins = convert_duration_info_to_minutes('12 days    05:10:00')
+    # mins = convert_duration_info_to_minutes('1 days    00:00:00')
+    # print(mins)
+
+    x = load_file('small.csv')
+    x.sort(key=lambda x: x.total_time_minutes)
+
+    for ti in x:
+        if ti.source.startswith('MUM'):
+            print(ti)
