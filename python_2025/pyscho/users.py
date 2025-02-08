@@ -1,5 +1,13 @@
+from random import randint
+
+
 def get_random_users(n_users: int) -> dict[str, int]:
-    pass
+    if n_users <= 0:
+        raise ValueError('n_users must be greater than zero')
+    res = dict()
+    while len(res) < n_users:
+        res[f'user{randint(1,10**6)}'] = 0
+    return res
 
 
 def test_users1():
