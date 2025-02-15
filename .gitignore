@@ -1,6 +1,7 @@
 .idea
 **/__pycache__
 python_2025/my_work
+**/my_work
 poetry.toml
 .env
 tmp
