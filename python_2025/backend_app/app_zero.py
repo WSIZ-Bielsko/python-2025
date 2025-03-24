@@ -1,6 +1,11 @@
+from random import randint
+
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+
+from python_2025.backend_app.engine import solve
+from python_2025.backend_app.ship_fight import shot
 
 app = FastAPI()
 
@@ -8,6 +13,7 @@ app = FastAPI()
 users: dict[int, dict] = {}
 user_id_counter = 1
 moves: dict[int, str] = {}
+state = {'board': '.' * 20}
 
 
 class User(BaseModel):
@@ -30,9 +36,38 @@ def add_numbers(num1: float, num2: float):
     return {"result": num1 + num2}
 
 
-@app.post("/largest")
-def add_numbers(numbers: list[int]):
-    return {"result": max(numbers)}
+@app.get("/get_winner/{board}")
+def solve(board: str):
+    return {"result": solve(board)}
+
+
+@app.get("/ships_reset")
+def reset():
+    n_board = ['.' for _ in range(20)]
+    pos = randint(0, 18)
+    n_board[pos] = 'o'
+    n_board[pos + 1] = 'o'
+    state['board'] = ''.join(n_board)
+    return {"result": 'new board created'}
+
+
+@app.get("/ships/shot/{position}")
+def shotz(position: int):
+    board = state['board']
+    res, n_board = shot(board, position)
+    state['board'] = n_board
+    return {"result": res}
+
+
+@app.get("/get_winner/{board}")
+def solve(board: str):
+    return {"result": solve(board)}
+
+
+@app.get("/largest")
+def add_numbers(numbers: str):
+    nn = [int(n) for n in numbers.split(",")]
+    return {"result": max(nn)}
 
 
 def get_winner(move_dict: dict[int, str]) -> str:
@@ -63,7 +98,7 @@ def add_numbers(player: int, move: str):
 def create_user(user: User):
     global user_id_counter
     user_id = user_id_counter
-    users[user_id] = user.dict()
+    users[user_id] = user.model_dump()
     user_id_counter += 1
     return {"id": user_id, **users[user_id]}
 
@@ -74,7 +109,7 @@ def update_user(user_id: int, user_update: UserUpdate):
         raise HTTPException(status_code=404, detail="User not found")
 
     current_user = users[user_id]
-    update_data = user_update.dict(exclude_unset=True)
+    update_data = user_update.model_dump(exclude_unset=True)
     updated_user = {**current_user, **update_data}
     users[user_id] = updated_user
     return {"id": user_id, **updated_user}
