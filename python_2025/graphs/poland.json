@@ -1,0 +1,244 @@
+{
+    "Warszawa": [
+        "Łódź",
+        "Radom",
+        "Lublin",
+        "Białystok",
+        "Olsztyn",
+        "Kraków"
+    ],
+    "Kraków": [
+        "Warszawa",
+        "Katowice",
+        "Rzeszów",
+        "Tarnów",
+        "Kielce"
+    ],
+    "Łódź": [
+        "Warszawa",
+        "Poznań",
+        "Wrocław",
+        "Katowice",
+        "Toruń",
+        "Płock"
+    ],
+    "Wrocław": [
+        "Poznań",
+        "Łódź",
+        "Katowice",
+        "Opole",
+        "Zielona Góra",
+        "Wałbrzych"
+    ],
+    "Poznań": [
+        "Łódź",
+        "Wrocław",
+        "Szczecin",
+        "Bydgoszcz",
+        "Gorzów Wielkopolski"
+    ],
+    "Gdańsk": [
+        "Bydgoszcz",
+        "Olsztyn",
+        "Szczecin",
+        "Elbląg",
+        "Słupsk"
+    ],
+    "Szczecin": [
+        "Poznań",
+        "Gdańsk",
+        "Gorzów Wielkopolski",
+        "Koszalin"
+    ],
+    "Bydgoszcz": [
+        "Gdańsk",
+        "Poznań",
+        "Toruń",
+        "Olsztyn",
+        "Piła"
+    ],
+    "Lublin": [
+        "Warszawa",
+        "Rzeszów",
+        "Białystok",
+        "Chełm",
+        "Zamość"
+    ],
+    "Katowice": [
+        "Kraków",
+        "Łódź",
+        "Wrocław",
+        "Opole",
+        "Częstochowa",
+        "Bielsko-Biała"
+    ],
+    "Białystok": [
+        "Warszawa",
+        "Lublin",
+        "Gdańsk",
+        "Olsztyn",
+        "Suwałki"
+    ],
+    "Gorzów Wielkopolski": [
+        "Poznań",
+        "Szczecin",
+        "Zielona Góra",
+        "Piła"
+    ],
+    "Olsztyn": [
+        "Warszawa",
+        "Gdańsk",
+        "Białystok",
+        "Bydgoszcz",
+        "Elbląg"
+    ],
+    "Rzeszów": [
+        "Kraków",
+        "Lublin",
+        "Tarnów",
+        "Przemyśl",
+        "Krosno"
+    ],
+    "Kielce": [
+        "Kraków",
+        "Warszawa",
+        "Radom",
+        "Częstochowa",
+        "Tarnów"
+    ],
+    "Opole": [
+        "Wrocław",
+        "Katowice",
+        "Częstochowa",
+        "Gliwice"
+    ],
+    "Toruń": [
+        "Łódź",
+        "Bydgoszcz",
+        "Włocławek",
+        "Płock",
+        "Olsztyn"
+    ],
+    "Radom": [
+        "Warszawa",
+        "Kielce",
+        "Lublin",
+        "Piotrków Trybunalski"
+    ],
+    "Zielona Góra": [
+        "Wrocław",
+        "Gorzów Wielkopolski",
+        "Legnica",
+        "Leszno"
+    ],
+    "Wałbrzych": [
+        "Wrocław",
+        "Jelenia Góra",
+        "Legnica",
+        "Świdnica"
+    ],
+    "Płock": [
+        "Warszawa",
+        "Łódź",
+        "Toruń",
+        "Włocławek"
+    ],
+    "Elbląg": [
+        "Gdańsk",
+        "Olsztyn",
+        "Malbork",
+        "Grudziądz"
+    ],
+    "Tarnów": [
+        "Kraków",
+        "Rzeszów",
+        "Kielce",
+        "Nowy Sącz"
+    ],
+    "Częstochowa": [
+        "Katowice",
+        "Łódź",
+        "Kielce",
+        "Opole"
+    ],
+    "Bielsko-Biała": [
+        "Katowice",
+        "Żywiec",
+        "Cieszyn"
+    ],
+    "Koszalin": [
+        "Szczecin",
+        "Gdańsk",
+        "Słupsk",
+        "Kołobrzeg"
+    ],
+    "Słupsk": [
+        "Gdańsk",
+        "Koszalin",
+        "Lębork"
+    ],
+    "Piła": [
+        "Poznań",
+        "Bydgoszcz",
+        "Gorzów Wielkopolski",
+        "Szczecinek"
+    ],
+    "Chełm": [
+        "Lublin",
+        "Zamość",
+        "Krasnystaw"
+    ],
+    "Zamość": [
+        "Lublin",
+        "Chełm",
+        "Tomaszów Lubelski"
+    ],
+    "Suwałki": [
+        "Białystok",
+        "Augustów",
+        "Sejny"
+    ],
+    "Przemyśl": [
+        "Rzeszów",
+        "Jarosław",
+        "Sanok"
+    ],
+    "Krosno": [
+        "Rzeszów",
+        "Sanok",
+        "Jasło"
+    ],
+    "Gliwice": [
+        "Katowice",
+        "Opole",
+        "Zabrze",
+        "Bytom"
+    ],
+    "Włocławek": [
+        "Łódź",
+        "Toruń",
+        "Płock",
+        "Konin"
+    ],
+    "Legnica": [
+        "Wrocław",
+        "Zielona Góra",
+        "Wałbrzych",
+        "Lubin"
+    ],
+    "Jelenia Góra": [
+        "Wałbrzych",
+        "Legnica",
+        "Bolesławiec"
+    ],
+    "Nowy Sącz": [
+        "Kraków",
+        "Tarnów",
+        "Zakopane"
+    ],
+    "Malbork": [
+        "Gdańsk",
+        "Elbląg",
+        "Tczew"
+    ]
+}
