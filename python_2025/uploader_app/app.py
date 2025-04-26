@@ -21,7 +21,9 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 @app.post("/upload/")
 async def upload_file(file: UploadFile = File(...)):
-    file_path = os.path.join(UPLOAD_DIR, file.filename)
+    newfile = 'aa.pdf'
+    logger.info(f'saving file {file.filename} to {newfile}')
+    file_path = os.path.join(UPLOAD_DIR, newfile)
 
     # Save uploaded file
     with open(file_path, "wb") as buffer:
@@ -42,7 +44,8 @@ async def download_file(filename: str):
     media_type, _ = mimetypes.guess_type(file_path)
     media_type = media_type or "application/octet-stream"  # Fallback to octet-stream if unknown
 
-    logger.info(f'filename = {filename}')
+    filename = 'cv.pdf'
+
     # Return FileResponse with proper headers
     return FileResponse(
         path=file_path,
