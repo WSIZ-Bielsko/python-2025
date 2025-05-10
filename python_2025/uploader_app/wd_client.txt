@@ -1,0 +1,17 @@
+GET 'https://wdauth.wsi.edu.pl/authenticate?album={album}&pass={md5(pass)}'
+output:
+{"token": {"studentid": 3333, "wdauth": "fd28dc76-b514-4138-aaaa-fd28dc76", "expiry_epoch_s": 1746897154}, "roles": ["kadra"]}
+
+
+GET 'curl 'https://wdauth.wsi.edu.pl/user?wdauth=eeee6e5a-2b38-4873-1111-eeee6e5a'
+output:
+{"studentid": 3279, "album": "1234", "imie": "Rudolf", "nazwisko": "Diesel", "datarejestracji": "2222-11-09", "active": true, "star": false, "finid": 3278, "email": null, "phone": null, "comment": null}⏎
+
+
+GET 'https://wddata.wsi.edu.pl/semester/30015/student/3756/termin/1/notes?wdauth={WDA}'
+output:
+[{"ocenaid":102297,"semestrid":30015,"studentid":3756,"przedmiotid":727,"wykladowcaid":60,"terminid":1,"ocenatypid":0,"datamodyfikacji":"2025-05-05"},{"ocenaid":102348,"semestrid":30015,"studentid":3756,"przedmiotid":728,"wykladowcaid":60,"terminid":1,"ocenatypid":0,"datamodyfikacji":"2025-05-05"},{"ocenaid":102399,"semestrid":30015,"studentid":3756,"przedmiotid":786,"wykladowcaid":60,"terminid":1,"ocenatypid":0,"datamodyfikacji":"2025-05-05"},{"ocenaid":102450,"semestrid":30015,"studentid":3756,"przedmiotid":787,"wykladowcaid":60,"terminid":1,"ocenatypid":0,"datamodyfikacji":"2025-05-05"},{"ocenaid":102501,"semestrid":30015,"studentid":3756,"przedmiotid":897,"wykladowcaid":60,"terminid":1,"ocenatypid":0,"datamodyfikacji":"2025-05-05"},{"ocenaid":102552,"semestrid":30015,"studentid":3756,"przedmiotid":898,"wykladowcaid":60,"terminid":1,"ocenatypid":0,"datamodyfikacji":"2025-05-05"},{"ocenaid":102603,"semestrid":30015,"studentid":3756,"przedmiotid":899,"wykladowcaid":60,"terminid":1,"ocenatypid":0,"datamodyfikacji":"2025-05-05"}]
+
+GET 'https://wddata.wsi.edu.pl/semesters?wdauth={WDA}'
+
+GET 'https://wddata.wsi.edu.pl/lectures?wdauth={WDA}'

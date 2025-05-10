@@ -13,7 +13,7 @@ from fastapi.security import HTTPAuthorizationCredentials
 from loguru import logger
 
 from python_2025.uploader_app.app_security import verify_password
-from python_2025.uploader_app.file_tools import FileMeta, get_meta_by_file_id
+from python_2025.uploader_app.file_tools import FileMeta, get_meta_by_file_id, get_all_files, validate_file_name
 
 app = FastAPI()
 
@@ -30,19 +30,25 @@ async def upload_file(file: UploadFile = File(...)):
     body_file_name = file_id + '.body'
     meta_file_name = file_id + '.meta'
 
-    logger.info(f'saving file {file.filename} to {body_file_name}')
+    # validate file name
+    file_name = validate_file_name(file.filename)
+
+    logger.info(f'saving file {file_name} to {body_file_name}')
+
     body_file_path = os.path.join(UPLOAD_DIR, body_file_name)
 
     # Save uploaded file
     with open(body_file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
+    file_size_mb = int(os.path.getsize(body_file_path) / (1024 * 1024))
+
     # Save meta file
     meta = FileMeta(file_id=UUID(file_id),
-                    original_file_name=file.filename,
+                    original_file_name=file_name,
                     user_id=1,
                     category_id=1,
-                    size_mb=2,
+                    size_mb=file_size_mb,
                     upload_date=datetime.now())
     meta_file_path = os.path.join(UPLOAD_DIR, meta_file_name)
     with open(meta_file_path, 'w') as f:
@@ -83,8 +89,8 @@ async def download_file(file_id: str):
 
 @app.get("/list-files/")
 async def list_files(credentials: HTTPAuthorizationCredentials = Depends(verify_password)):
-    files = os.listdir(UPLOAD_DIR)
-    return {"files": files}
+    # files = os.listdir(UPLOAD_DIR)
+    return {"files": get_all_files()}
 
 
 @app.get("/date/")
