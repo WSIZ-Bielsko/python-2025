@@ -13,6 +13,15 @@ class FileMeta(BaseModel):
     upload_date: datetime
 
 
+def get_files_by_name(files: list[FileMeta], file_name: str) -> list[FileMeta]:
+    """
+
+    :param file_name:
+    :param files:
+    :return: files with original file name =  file_name
+    """
+    return [f for f in files if f.original_file_name == file_name]
+
 if __name__ == '__main__':
     x = FileMeta(file_id=uuid4(), original_file_name='test.txt', user_id=1, category_id=2, size_mb=1000,
                  upload_date=datetime.now())
@@ -21,5 +30,5 @@ if __name__ == '__main__':
     z = FileMeta(file_id=uuid4(), original_file_name='test2.txt', user_id=2, category_id=3, size_mb=1000,
                  upload_date=datetime.now())
 
-    for f in [x,y,z]:
+    for f in get_files_by_name([x, y, z], 'test2.txt'):
         print(f)
