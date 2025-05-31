@@ -8,6 +8,7 @@ pip install nltk
 
 """
 
+
 def setup_nltk():
     nltk.download('punkt')
     nltk.download('averaged_perceptron_tagger')
@@ -22,13 +23,16 @@ def tag_sentence(sentence: str) -> list[tuple[str, str]]:
     return tagged
 
 
+def contains_verb(sentence: str) -> bool:
+    """
+    returns: true if the provided sentence contains a verb in any form
+    """
+
+
 if __name__ == '__main__':
     # setup_nltk()  # run this 1 time per interpreter
     sentence = 'The quick brown fox jumps over the lazy dog'
 
     tagged = tag_sentence(sentence)
     for word, tag in tagged:
-
         print(f'{word=}, {tag=}')
-
-
