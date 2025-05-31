@@ -27,7 +27,10 @@ def contains_verb(sentence: str) -> bool:
     """
     returns: true if the provided sentence contains a verb in any form
     """
+    return False
 
+def test_contains_verb():
+    assert contains_verb('Dog barks in park') is True
 
 if __name__ == '__main__':
     # setup_nltk()  # run this 1 time per interpreter
