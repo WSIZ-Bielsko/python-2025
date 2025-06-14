@@ -1,0 +1,2 @@
+# Algorytmy do systemu subskrypcji
+
