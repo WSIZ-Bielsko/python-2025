@@ -10,6 +10,7 @@ class User:
 
     # metody
     def check_pin(self, pin: int) -> bool:
+        print('checking pin...')
         return self.pin == pin
 
 
@@ -47,6 +48,17 @@ if __name__ == '__main__':
         # jeśli jest poprawny, to witamy go, i wychodzimy z pętli
         # jeśli nie, to wypisujemy komunikat (albo o niepoprawnym PIN, albo o braku usera, odpowiednio)
 
-        # if u1.name == name and u1.check_pin(pin):
-        #     print('Welcome!')
+        x = User(name, pin)
+        if x in users:
+            print(f'Welcome {x.name}!')
+            break
+
+
+        # correct = False
+        # for u in users:
+        #     if u.name == name and u.check_pin(pin):
+        #         print(f'Welcome {u.name}!')
+        #         correct = True
+        #         break
+        # if correct:
         #     break
