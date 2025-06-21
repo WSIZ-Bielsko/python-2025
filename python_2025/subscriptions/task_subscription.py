@@ -39,7 +39,7 @@ def get_next_date(current_date: date, day_of_month: int) -> date:
 def test_leap_year():
     # 29 in February (leap year)
     assert get_next_date(date(2024, 2, 27), 29) == date(2024, 2, 29)
-    # 30 in February (leap year) should return last day of February
+    # 30 in February (leap year) should return the last day of February
     assert get_next_date(date(2024, 2, 15), 30) == date(2024, 2, 29)
     # After 29th Feb in leap year, should roll to next month's 29 (March 29)
     assert get_next_date(date(2024, 2, 29), 29) == date(2024, 2, 29)
@@ -53,7 +53,7 @@ def test_end_of_year():
     assert get_next_date(date(2025, 12, 31), 1) == date(2026, 1, 1)
     # Day larger than any in current month, on last day: Dec 31, 32 --> Dec 31
     assert get_next_date(date(2025, 12, 31), 32) == date(2025, 12, 31)
-    # Looking for last day of year (31st Dec) from mid-year
+    # Looking for last day of month from mid-year
     assert get_next_date(date(2025, 7, 9), 31) == date(2025, 7, 31)
 
 def test_various_month_lengths():
