@@ -1,4 +1,4 @@
 # developing software for airlock-door system
 
-(todo)
-
+- tests will be created soon
+- basic FastAPI webapp is available
