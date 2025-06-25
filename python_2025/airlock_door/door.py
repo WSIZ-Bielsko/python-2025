@@ -41,6 +41,24 @@ class Door:
     def leave_airlock(self, occupant, destination: str):
         logger.info(f'{occupant} attempts to leave the airlock in the direction: {destination}')
         # todo: implement
+        if self.air_lock_occupant != occupant:
+            raise DoorError(f'Airlock occupied by {self.air_lock_occupant}, not {occupant}')
+        if self.air_lock_occupant == '(empty)':
+            raise DoorError(f'Airlock is not occupied')
+
+        if destination=='room':
+            # a person leaves the airlock to the room
+            if occupant in self.current_room_occupants:
+                raise DoorError(f'{occupant} already in room')
+
+            self.air_lock_occupant = '(empty)'
+            self.current_room_occupants.append(occupant)
+        elif destination=='lobby':
+            # a person leaves the airlock to the lobby
+            self.air_lock_occupant = '(empty)'
+        else:
+            raise DoorError(f'Invalid destination: {destination}')
+        logger.info(f'{occupant} left the airlock')
 
 
 def test_enter_door():
@@ -55,7 +73,86 @@ def test_enter_door():
 
 
 # todo: write more tests....
+def test_enter_airlock_from_room_success():
+    door = Door()
+    door.current_room_occupants = ['Alice', 'Bob']
+    door.enter_airlock('Alice', 'room')
+    assert door.air_lock_occupant == 'Alice'
+    assert 'Alice' not in door.current_room_occupants
 
+def test_enter_airlock_from_room_fail_not_in_room():
+    door = Door()
+    door.current_room_occupants = ['Bob']
+    try:
+        door.enter_airlock('Alice', 'room')
+        assert False, "DoorError not raised"
+    except DoorError:
+        pass
+
+def test_enter_airlock_from_lobby_success():
+    door = Door()
+    door.current_room_occupants = ['Bob']
+    door.enter_airlock('Charlie', 'lobby')
+    assert door.air_lock_occupant == 'Charlie'
+
+def test_enter_airlock_from_lobby_fail_already_in_room():
+    door = Door()
+    door.current_room_occupants = ['Alice']
+    try:
+        door.enter_airlock('Alice', 'lobby')
+        assert False, "DoorError not raised"
+    except DoorError:
+        pass
+
+def test_leave_airlock_to_room_success():
+    door = Door()
+    door.current_room_occupants = ['Bob']
+    door.air_lock_occupant = 'Alice'
+    door.leave_airlock('Alice', 'room')
+    assert door.air_lock_occupant == '(empty)'
+    assert 'Alice' in door.current_room_occupants
+
+def test_leave_airlock_to_room_fail_already_in_room():
+    door = Door()
+    door.current_room_occupants = ['Alice']
+    door.air_lock_occupant = 'Alice'
+    try:
+        door.leave_airlock('Alice', 'room')
+        assert False, "DoorError not raised"
+    except DoorError:
+        pass
+
+def test_leave_airlock_to_lobby_success():
+    door = Door()
+    door.air_lock_occupant = 'Alice'
+    door.leave_airlock('Alice', 'lobby')
+    assert door.air_lock_occupant == '(empty)'
+
+def test_leave_airlock_fail_airlock_empty():
+    door = Door()
+    try:
+        door.leave_airlock('Alice', 'room')
+        assert False, "DoorError not raised"
+    except DoorError:
+        pass
+
+def test_leave_airlock_fail_wrong_occupant():
+    door = Door()
+    door.air_lock_occupant = 'Bob'
+    try:
+        door.leave_airlock('Alice', 'room')
+        assert False, "DoorError not raised"
+    except DoorError:
+        pass
+
+def test_leave_airlock_fail_invalid_destination():
+    door = Door()
+    door.air_lock_occupant = 'Alice'
+    try:
+        door.leave_airlock('Alice', 'garage')
+        assert False, "DoorError not raised"
+    except DoorError:
+        pass
 
 if __name__ == '__main__':
     door = Door()
