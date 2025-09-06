@@ -647,10 +647,19 @@ def display_aircraft(part_db: dict[int, AircraftPart], part: AircraftPart, level
         display_aircraft(part_db, part_db[part_id], level + 1)
 
 
+def count_parts(part_db: dict[int, AircraftPart], part: AircraftPart) -> int:
+    num_parts = 1
+    for part_id in part.subparts:
+        num_parts += count_parts(part_db, part_db[part_id])
+    return num_parts
+
+
 if __name__ == '__main__':
     all_parts: dict[int, AircraftPart] = dict()
     aircraft1 = create_aircraft(part_db=all_parts)
     aircraft2 = create_aircraft(part_db=all_parts)
     display_aircraft(all_parts, aircraft1, level=0)
+    print(f'parts in aircraft1: {count_parts(all_parts, aircraft1)}')
     print('-------')
     display_aircraft(all_parts, aircraft2, level=0)
+    print(f'parts in aircraft1: {count_parts(all_parts, aircraft2)}')
