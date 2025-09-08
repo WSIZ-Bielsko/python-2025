@@ -642,7 +642,7 @@ def create_aircraft2(part_db: dict[int, AircraftPart]):
 
 
 def display_aircraft(part_db: dict[int, AircraftPart], part: AircraftPart, level: int) -> None:
-    print(f'{" " * level}LV={level}, name={part.name} ({part.id})')
+    print(f'{"    " * level}LV={level}, name={part.name} ({part.id})')
     for part_id in part.subparts:
         display_aircraft(part_db, part_db[part_id], level + 1)
 
@@ -653,6 +653,9 @@ def count_parts(part_db: dict[int, AircraftPart], part: AircraftPart) -> int:
         num_parts += count_parts(part_db, part_db[part_id])
     return num_parts
 
+
+def max_hours_left(part_db: dict[int, AircraftPart], part: AircraftPart) -> int:
+    pass
 
 if __name__ == '__main__':
     all_parts: dict[int, AircraftPart] = dict()
