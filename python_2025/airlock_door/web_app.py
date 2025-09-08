@@ -12,7 +12,7 @@ door = Door()
 Generated with AI (Claude 4) with
 
 create app.py with full api using fastapi library 
-and providing access to alll methods of Door class
+and providing access to all methods of Door class
 
 {contents of door.py}
 
@@ -51,7 +51,7 @@ async def get_door_status():
     """Get current door status including airlock occupant and current occupants"""
     return DoorStatus(
         air_lock_occupant=door.air_lock_occupant,
-        current_occupants=door.current_occupants
+        current_occupants=door.current_room_occupants
     )
 
 
@@ -59,7 +59,7 @@ async def get_door_status():
 async def enter_door(request: EnterRequest):
     """Enter the airlock"""
     try:
-        door.enter(request.occupant, request.direction)
+        door.enter_airlock(request.occupant, request.direction)
         return OperationResponse(
             success=True,
             message=f"{request.occupant} successfully entered the airlock"
@@ -74,7 +74,7 @@ async def enter_door(request: EnterRequest):
 async def leave_door(request: LeaveRequest):
     """Leave the airlock"""
     try:
-        door.leave(request.occupant, request.direction)
+        door.leave_airlock(request.occupant, request.direction)
         return OperationResponse(
             success=True,
             message=f"{request.occupant} successfully left the airlock"
@@ -94,14 +94,14 @@ async def get_airlock_occupant():
 @app.get("/current-occupants")
 async def get_current_occupants():
     """Get list of current occupants"""
-    return {"current_occupants": door.current_occupants}
+    return {"current_occupants": door.current_room_occupants}
 
 
 @app.post("/reset")
 async def reset_door():
     """Reset door state (clear airlock and occupants)"""
     door.air_lock_occupant = None
-    door.current_occupants = []
+    door.current_room_occupants = []
     return OperationResponse(
         success=True,
         message="Door state has been reset"
