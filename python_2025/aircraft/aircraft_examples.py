@@ -1,6 +1,48 @@
 from python_2025.aircraft.model import AircraftPart
 
 
+def create_aircraft0(part_db: dict[int, AircraftPart]) -> AircraftPart:
+    all_parts = [
+        AircraftPart(id=1, name='Gulfstream G650ER', flights_since_overhaul=100, hours_since_overhaul=1500, max_flights=5000,
+                     max_hours=15000, subparts=[2, 3, 4]),
+        AircraftPart(id=2, name='Engine System', flights_since_overhaul=100, hours_since_overhaul=1500, max_flights=2000,
+                     max_hours=8000, subparts=[5, 6]),
+        AircraftPart(id=3, name='Avionics System', flights_since_overhaul=50, hours_since_overhaul=500, max_flights=10000,
+                     max_hours=10000, subparts=[7, 8]),
+        AircraftPart(id=4, name='Landing Gear System', flights_since_overhaul=30, hours_since_overhaul=700, max_flights=1500,
+                     max_hours=6000, subparts=[9, 10]),
+        AircraftPart(id=5, name='Turbofan Engine', flights_since_overhaul=100, hours_since_overhaul=1500, max_flights=2000,
+                     max_hours=8000, subparts=[11, 12]),
+        AircraftPart(id=6, name='Fuel System', flights_since_overhaul=90, hours_since_overhaul=1200, max_flights=2000,
+                     max_hours=5000, subparts=[13]),
+        AircraftPart(id=7, name='Flight Control Computer', flights_since_overhaul=50, hours_since_overhaul=500, max_flights=10000,
+                     max_hours=10000, subparts=[]),
+        AircraftPart(id=8, name='Navigation System', flights_since_overhaul=50, hours_since_overhaul=500, max_flights=10000,
+                     max_hours=10000, subparts=[]),
+        AircraftPart(id=9, name='Main Landing Gear', flights_since_overhaul=30, hours_since_overhaul=700, max_flights=1500,
+                     max_hours=6000, subparts=[14]),
+        AircraftPart(id=10, name='Nose Landing Gear', flights_since_overhaul=25, hours_since_overhaul=600, max_flights=1500,
+                     max_hours=6000, subparts=[]),
+        AircraftPart(id=11, name='Compressor', flights_since_overhaul=80, hours_since_overhaul=1200, max_flights=2000,
+                     max_hours=8000, subparts=[]),
+        AircraftPart(id=12, name='Turbine', flights_since_overhaul=80, hours_since_overhaul=1200, max_flights=2000,
+                     max_hours=8000, subparts=[]),
+        AircraftPart(id=13, name='Fuel Pump', flights_since_overhaul=90, hours_since_overhaul=1200, max_flights=2000,
+                     max_hours=5000, subparts=[]),
+        AircraftPart(id=14, name='Shock Absorber', flights_since_overhaul=30, hours_since_overhaul=700, max_flights=1500,
+                     max_hours=6000, subparts=[])
+    ]
+    offset = 500
+    for part in all_parts:
+        part.id += offset
+        part_db[part.id] = part
+        part.subparts = [pid + offset for pid in part.subparts]
+
+    return all_parts[0]
+
+
+
+
 def create_aircraft(part_db: dict[int, AircraftPart]) -> AircraftPart:
     # Level 1: Main Aircraft
     aircraft = AircraftPart(
@@ -654,15 +696,23 @@ def count_parts(part_db: dict[int, AircraftPart], part: AircraftPart) -> int:
     return num_parts
 
 
-def max_hours_left(part_db: dict[int, AircraftPart], part: AircraftPart) -> int:
-    pass
+def min_hours_left(part_db: dict[int, AircraftPart], part: AircraftPart) -> int:
+    difference = list()
+    difference.append(part.max_hours - part.hours_since_overhaul)
+    print(f'{part.id} - {part.name}: {difference}')
+    for part_id in part.subparts:
+        difference.append(min_hours_left(part_db, part_db[part_id]))
+    return min(difference)
 
 if __name__ == '__main__':
     all_parts: dict[int, AircraftPart] = dict()
-    aircraft1 = create_aircraft(part_db=all_parts)
-    aircraft2 = create_aircraft(part_db=all_parts)
+    aircraft1 = create_aircraft0(part_db=all_parts)
+    # aircraft2 = create_aircraft2(part_db=all_parts)
     display_aircraft(all_parts, aircraft1, level=0)
-    print(f'parts in aircraft1: {count_parts(all_parts, aircraft1)}')
-    print('-------')
-    display_aircraft(all_parts, aircraft2, level=0)
-    print(f'parts in aircraft1: {count_parts(all_parts, aircraft2)}')
+    # print(f'parts in aircraft1: {count_parts(all_parts, aircraft1)}')
+    # print(f'min hours left for aircraft1: {min_hours_left(all_parts, aircraft1)}')
+    # print('-------')
+    # display_aircraft(all_parts, aircraft2, level=0)
+    # print(f'parts in aircraft1: {count_parts(all_parts, aircraft2)}')
+    # print(f'min hours left for aircraft2: {min_hours_left(all_parts, aircraft2)}')
+    print(f'min_hours_left for aircraft0: {min_hours_left(all_parts, aircraft1)}')

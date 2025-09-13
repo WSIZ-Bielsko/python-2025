@@ -21,9 +21,6 @@ class AircraftPart(BaseModel):
     subparts: list[int]
 
 
-
-
-
 if __name__ == '__main__':
     f1 = Figure(side=10, height=2)  # instancja klasy
 
@@ -31,4 +28,5 @@ if __name__ == '__main__':
     print(f1)
 
     f2 = Figure(side=8, height=22)
+    f2.height = 111
     print(f2)
