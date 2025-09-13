@@ -41,8 +41,6 @@ def create_aircraft0(part_db: dict[int, AircraftPart]) -> AircraftPart:
     return all_parts[0]
 
 
-
-
 def create_aircraft(part_db: dict[int, AircraftPart]) -> AircraftPart:
     # Level 1: Main Aircraft
     aircraft = AircraftPart(
@@ -703,6 +701,18 @@ def min_hours_left(part_db: dict[int, AircraftPart], part: AircraftPart) -> int:
     for part_id in part.subparts:
         difference.append(min_hours_left(part_db, part_db[part_id]))
     return min(difference)
+
+
+def parts_nearing_maintenance(part_db: dict[int, AircraftPart], part: AircraftPart, num_parts) -> list[AircraftPart]:
+    """
+    Find the num_parts parts that are closest to the next maintenance (the least hours left).
+    :param part_db:
+    :param part:
+    :param num_parts:
+    :return:
+    """
+    pass
+
 
 if __name__ == '__main__':
     all_parts: dict[int, AircraftPart] = dict()
